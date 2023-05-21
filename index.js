@@ -70,6 +70,10 @@ async function run() {
 
     });
 
+    app.patch('/bookedToys/:id', async (req,res)=>{
+      const updateBookedToys = req.body;
+    })
+
     app.delete('/bookedToys/:id', async(req,res)=>{
       const id = req.params.id;
       const query = {_id: new ObjectId(id)}
