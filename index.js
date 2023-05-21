@@ -57,9 +57,24 @@ async function run() {
 
     // booked toys
 
+   
+
     app.get('/bookedToys', async(req,res)=>{
-        const result = await bookedToysCollection.find().toArray;
+        console.log(req.query.email);
+        let query ={};
+        if (req.query?.email){
+            query = {email:req.query.email}
+        }
+        const result = await bookedToysCollection.find().toArray();
         res.send(result);
+
+    });
+
+    app.delete('/bookedToys/:id', async(req,res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)}
+      const result = await bookedToysCollection.deleteOne(query)
+      res.send(result)
 
     })
 
