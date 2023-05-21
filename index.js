@@ -37,6 +37,7 @@ async function run() {
 
 
     const toysCollection = client.db('toyCity').collection('toys');
+    const bookedToysCollection = client.db('toyCity').collection('bookedToys');
 
     app.get('/toys',async(req,res)=>{
         const cursor = toysCollection.find();
@@ -53,6 +54,22 @@ async function run() {
         const result = await toysCollection.findOne(query);
         res.send(result)
     })
+
+    // booked toys
+
+    app.get('/bookedToys', async(req,res)=>{
+        const result = await bookedToysCollection.find().toArray;
+        res.send(result);
+
+    })
+
+    app.post('/bookedToys', async (req,res)=>{const booked = req.body;
+    console.log(booked)
+    const result = await bookedToysCollection.insertOne(booked);
+    res.send(result);
+
+})
+
 
 
     // Send a ping to confirm a successful connection
