@@ -71,7 +71,19 @@ async function run() {
     });
 
     app.patch('/bookedToys/:id', async (req,res)=>{
+      const id = req.params.id;
+      const filter = {
+        _id: new ObjectId(id)
+      };
       const updateBookedToys = req.body;
+      console.log(updateBookedToys);
+      const updateDoc = {
+        $set:{
+          status: updateBookedToys.status
+        }
+      };
+      const result = await bookedToysCollection.updateOne(filter,updateDoc)
+      res.send(result)
     })
 
     app.delete('/bookedToys/:id', async(req,res)=>{
